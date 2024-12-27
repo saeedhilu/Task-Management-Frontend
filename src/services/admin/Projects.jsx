@@ -24,6 +24,8 @@ const ProjectService = {
 
   // Update an existing project
   updateProject: async (projectId, projectData) => {
+    console.log('project id and project data is :', projectData, projectId );
+    
     const response = await instance.patch(`/projects/project/${projectId}/`, projectData);
     return response.data;
   },

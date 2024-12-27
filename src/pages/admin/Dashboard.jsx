@@ -1,10 +1,12 @@
+import DashboardCard from "@/components/card/DashboardCard";
+
 const AdminDashboard=()=>{
     console.log('====================================');
     console.log('Hey iam here ');
     console.log('====================================');
     return (
         <div>
-            Hey iam here
+            <DashboardCard/>
         </div>
     )
 }

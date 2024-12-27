@@ -35,6 +35,8 @@ const TasksService = {
 
   // Update an existing Tasks
   updateTasks: async (TasksId, TasksData) => {
+    console.log('task id and task data is :', TasksId, TasksData);
+    
     const response = await instance.patch(`/tasks/tasks/${TasksId}/`, TasksData);
     return response.data;
   },

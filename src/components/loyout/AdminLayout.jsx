@@ -6,7 +6,7 @@ const AdminLayout = () => {
   return (
     <div className="flex">
       {/* Sidebar fixed position */}
-      <div className=" fixed top-0 left-0 h-full w-64 bg-gray-100 shadow-lg">
+      <div className=" fixed top-0 left-0 h-full w-64  shadow-lg">
         <SidebarComponent />
       </div>
 

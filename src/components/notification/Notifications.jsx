@@ -4,6 +4,7 @@ import useNotificationWebSocket from "@/hooks/useNotifications";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FaBell } from "react-icons/fa";
 import fetchNotifications from "@/services/user/Notification";
+import NotificationSound from "./NotificationSound";
 
 const MyNotificationsComponent = () => {
   const [notifications, setNotifications] = useState([]);
@@ -17,6 +18,7 @@ const MyNotificationsComponent = () => {
   });
 
   const addNotification = (notification) => {
+    NotificationSound().playSound();
     setNotifications((prevNotifications) => [
       ...prevNotifications,
       notification,
@@ -33,7 +35,7 @@ const MyNotificationsComponent = () => {
 
   return (
     <div className="relative">
-      <Dialog>
+      <Dialog >
         <DialogTrigger asChild>
           <button className="relative focus:outline-none">
             <FaBell className="w-6 h-6 text-gray-500" />
@@ -45,7 +47,7 @@ const MyNotificationsComponent = () => {
           </button>
         </DialogTrigger>
 
-        <DialogContent className="p-4 max-w-md mx-auto rounded-lg shadow-lg">
+        <DialogContent className="p-4 max-w-md mx-auto rounded-lg shadow-lg overflow-auto max-h-[500px]">
           <DialogHeader>
             <DialogTitle>Notifications</DialogTitle>
           </DialogHeader>

@@ -17,7 +17,7 @@ export function SidebarComponent() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="h-[calc(100vh)] w-full max-w-[20rem]  p-6 shadow-lg rounded-lg border ">
+    <div className="h-[calc(100vh)] w-full max-w-[20rem]   p-6 shadow-lg rounded-lg border ">
       <div className="mb-6 flex justify-between" >
         <h5 className="text-2xl font-bold ">Sidebar</h5>
         <ModeToggle/>

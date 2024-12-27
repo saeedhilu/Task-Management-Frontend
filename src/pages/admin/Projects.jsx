@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import DialogComponent from "@/components/diologue/Diologue";
 import SkeletonCard from "@/components/skeletons/TaskCardSkeleton";
 import useToastNotification from "@/hooks/useToastNotification";
+import { motion } from 'framer-motion';
 
 const ProjectsPage = () => {
   const { data: projects, isLoading: isLoadingProjects, error: projectsError, refetch } = useQuery(
@@ -74,9 +75,17 @@ const ProjectsPage = () => {
   return (
     <>
     <div className="flex justify-end">
-    <Button  onClick={() => setIsDialogOpen(true)}>
-        Add New Project +
-      </Button>
+      <motion.a
+        whileHover={{ scale: 1.2 }}
+        className="bg-sky-400 p-3 rounded-lg"
+        onHoverStart={event => {}}
+        onClick={() => setIsDialogOpen(true)}
+        onHoverEnd={event => {}}
+      >
+        Add new project
+      </motion.a>
+      
+     
     </div>
      
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">

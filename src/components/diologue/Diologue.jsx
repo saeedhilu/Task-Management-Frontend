@@ -34,7 +34,7 @@ const DialogComponent = ({
     if (inputs.every((input) => input.value.trim()) && selectedMembers.length > 0) {
       const formData = {
         ...inputs.reduce((acc, { name, value }) => ({ ...acc, [name]: value }), {}),
-        members: selectedMembers.map((member) => member.id), // Include member IDs
+        members: selectedMembers.map((member) => member.id), 
       };
       console.log('Form datais :',formData);
       

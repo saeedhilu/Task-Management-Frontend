@@ -11,6 +11,7 @@ import AdminRoutes from './components/routes/Admin';
 
 
 function App() {
+  console.log(App)
   const queryClient = new QueryClient();
   return (
     <>

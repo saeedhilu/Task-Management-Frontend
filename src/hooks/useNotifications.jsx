@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 
 const useNotificationWebSocket = (addNotification) => {
   const accessToken = useSelector((state) => state.auth.accessToken); // Get token from Redux state
-
+  console.log('access toke :', accessToken);
+  
   useEffect(() => {
     if (!accessToken) {
       console.warn('Access token is missing. Notifications will not work.');
