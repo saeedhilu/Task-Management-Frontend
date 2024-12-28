@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 const useNotificationWebSocket = (addNotification) => {
   const accessToken = useSelector((state) => state.auth.accessToken); // Get token from Redux state
-  console.log('access toke :', accessToken);
+  console.log('access toke 1111:', accessToken);
   
   useEffect(() => {
     if (!accessToken) {

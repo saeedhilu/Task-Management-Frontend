@@ -1,0 +1,7 @@
+.react-mentions__dropdown-menu {
+    color: #a69a9a; 
+    border-radius: 4px; 
+    width: 300px; 
+    padding: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}

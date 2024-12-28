@@ -24,6 +24,7 @@ import { FaRegCommentAlt } from "react-icons/fa";
 import CommentsDiologue from '../diologue/CommandDiologue';
 import { MentionsInput, Mention } from 'react-mentions'
 import TaskUsers from '@/services/user/TaskUsers';
+import './mentions.css'
 
 export const PRIORITY_CHOICES = {
   low: 'text-green-700',
@@ -96,9 +97,8 @@ const TaskCard = ({ task }) => {
     () => CommentService.fetchComments(task.id),
     { keepPreviousData: true }
   );
-  console.log('Task and Result is :',task, fetchedComments?.results);
+  console.log('Task and Result is :',task, fetchedComments);
   
-  // console.log('fetched commebt from line number 364:',fetchedComments?.results.filter((c)=> task?.id == c.task));
   
 
   const [comment, setComment] = useState('');
@@ -125,12 +125,13 @@ const TaskCard = ({ task }) => {
     if (comment.trim()) {
       try {
         const newComment = { task: task.id, text: comment };
+        queryClient.invalidateQueries('comments');
         console.log('New comment is :',newComment);
         
         await CommentService.createComment(newComment);
         showToast('Comment added successfully.', 'success');
         setComment('');
-        queryClient.invalidateQueries(['comments', task.id]);
+        
       } catch (error) {
         console.error('Error posting comment:', error);
       }
@@ -147,10 +148,11 @@ const TaskCard = ({ task }) => {
         const updatedComment = { text: editCommentText };
         console.log('Hello', updatedComment);
         await CommentService.updateComment(editCommentId, updatedComment);
-        showToast('Comment updated successfully.', 'success');
+        
         setEditCommentId(null);
         setEditCommentText('');
         refetch()
+        showToast('Comment updated successfully.', 'success');
       } catch (error) {
         console.error('Error updating comment:', error);
       }
@@ -201,30 +203,43 @@ const TaskCard = ({ task }) => {
               </div>
             </div>
             <div className="flex gap-2">
+            {/* <MentionsInput
+                value={comment}
+                onChange={handleCommentChange}
+                className="w-96 react-mentions__dropdown-menu"
+                placeholder="Add a comment with @mention..."
+            >
+                <Mention
+                    trigger="@"
+                    data={taskUsers?.map((user) => ({
+                        id: user.id,
+                        display: user.username,
+                    }))}
+                    onAdd={(id, display) => setMentions((prev) => [...prev, { id, display }])}
+                />
+            </MentionsInput> */}
             <MentionsInput
                   value={comment}
                   onChange={handleCommentChange}
-                  className='w-96 bg-red-400'
+                  className="w-96 react-mentions__dropdown-menu"
                   placeholder="Add a comment with @mention..."
                 >
-                  <Mention
-                  className='bg-red-500 text-black'
-                    trigger="@"
-                    data={taskUsers?.map((user) => ({
-                      id: user.id,
-                      display: user.username,
-                    }))}
-                    onAdd={(id, display) => setMentions((prev) => [...prev, { id, display }])}
-                    
-                  />
-        </MentionsInput>
-              {/* <Textarea
-                className="w-full p-2 border rounded-md"
-                rows="1"
-                placeholder="Add a comment..."
-                value={comment}
-                onChange={handleCommentChange}
-              /> */}
+                    <Mention
+                      trigger="@"
+                      data={taskUsers?.map((user) => ({
+                        id: user.id,
+                        display: user.username,
+                      }))}
+                      onAdd={(id, display) => {
+                        const trimmedDisplay = display.trim(); 
+                        const mentionString = `@${trimmedDisplay} `; 
+                        setComment((prev) => prev.replace(/@\S+/g, '') + mentionString); 
+                        setMentions((prev) => [...prev, { id, display: trimmedDisplay }]);
+                      }}
+                    />
+                  </MentionsInput>
+
+
               <Button onClick={handleCommentSubmit}>
                 <FiSend />
               </Button>

@@ -18,7 +18,10 @@ const MyNotificationsComponent = () => {
   });
 
   const addNotification = (notification) => {
+    console.log('Heyyyyyyyy');
+    
     NotificationSound().playSound();
+    
     setNotifications((prevNotifications) => [
       ...prevNotifications,
       notification,
