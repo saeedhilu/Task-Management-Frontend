@@ -25,6 +25,7 @@ import CommentsDiologue from '../diologue/CommandDiologue';
 import { MentionsInput, Mention } from 'react-mentions'
 import TaskUsers from '@/services/user/TaskUsers';
 import './mentions.css'
+import Spinner from '../spinner/Spinner';
 
 export const PRIORITY_CHOICES = {
   low: 'text-green-700',
@@ -104,9 +105,7 @@ const TaskCard = ({ task }) => {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState(fetchedComments ? fetchedComments.results : []);
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
-  console.log('====================================');
-  console.log('Page is  adn coment is :', pagination, comments);
-  console.log('====================================');
+  const [ isCommentLoad, setIsCommenLoading] = useState(false)
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editCommentId, setEditCommentId] = useState(null);
@@ -122,18 +121,24 @@ const TaskCard = ({ task }) => {
   )
 
   const handleCommentSubmit = async () => {
+    
     if (comment.trim()) {
+      setIsCommenLoading(true)
       try {
+        
         const newComment = { task: task.id, text: comment };
         queryClient.invalidateQueries('comments');
         console.log('New comment is :',newComment);
         
         await CommentService.createComment(newComment);
+        
         showToast('Comment added successfully.', 'success');
         setComment('');
         
       } catch (error) {
         console.error('Error posting comment:', error);
+      }finally{
+        setIsCommenLoading(false)
       }
     }
   };
@@ -203,21 +208,6 @@ const TaskCard = ({ task }) => {
               </div>
             </div>
             <div className="flex gap-2">
-            {/* <MentionsInput
-                value={comment}
-                onChange={handleCommentChange}
-                className="w-96 react-mentions__dropdown-menu"
-                placeholder="Add a comment with @mention..."
-            >
-                <Mention
-                    trigger="@"
-                    data={taskUsers?.map((user) => ({
-                        id: user.id,
-                        display: user.username,
-                    }))}
-                    onAdd={(id, display) => setMentions((prev) => [...prev, { id, display }])}
-                />
-            </MentionsInput> */}
             <MentionsInput
                   value={comment}
                   onChange={handleCommentChange}
@@ -238,10 +228,8 @@ const TaskCard = ({ task }) => {
                       }}
                     />
                   </MentionsInput>
-
-
               <Button onClick={handleCommentSubmit}>
-                <FiSend />
+                    {isCommentLoad ? <Spinner/> : <FiSend /> }
               </Button>
             </div>
           </div>

@@ -29,15 +29,15 @@ const DialogComponent = ({
 
 }) => {
   console.log('titile is :', title);
-  
+
   const handleSubmit = () => {
     if (inputs.every((input) => input.value.trim()) && selectedMembers.length > 0) {
       const formData = {
         ...inputs.reduce((acc, { name, value }) => ({ ...acc, [name]: value }), {}),
-        members: selectedMembers.map((member) => member.id), 
+        members: selectedMembers.map((member) => member.id),
       };
-      console.log('Form datais :',formData);
-      
+      console.log('Form datais :', formData);
+
       onSubmit(formData);
     } else {
       console.error("All fields and members are required.");
@@ -52,29 +52,29 @@ const DialogComponent = ({
         {
           title === 'Add New Task' ? (
             <>
-            <SearchProjectSelect 
-            
-            selectedProject={selectedProject}
-            setSelectedProject={setSelectedProject}
-            />
-            <div className="mt-4">
-          <p className="font-semibold">Selected Projects:</p>
-          {selectedProject?.map((project) => (
-            <motion.div
-              key={project.id}
-              className="flex items-center w-full bg-slate-300 rounded-xl mt-2 justify-between space-x-2"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1 }}
-              style={{ flexShrink: 0, flexGrow: 1 }}
-            >
-              <span>{project.name}</span>
-              <Button variant="inherit" size="sm" onClick={() => handleRemoveProject(project.id)}>
-                x
-              </Button>
-            </motion.div>
-          ))}
-        </div>
+              <SearchProjectSelect
+
+                selectedProject={selectedProject}
+                setSelectedProject={setSelectedProject}
+              />
+              <div className="mt-4">
+                <p className="font-semibold">Selected Projects:</p>
+                {selectedProject?.map((project) => (
+                  <motion.div
+                    key={project.id}
+                    className="flex items-center w-full bg-slate-300 rounded-xl mt-2 justify-between space-x-2"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1 }}
+                    style={{ flexShrink: 0, flexGrow: 1 }}
+                  >
+                    <span>{project.name}</span>
+                    <Button variant="inherit" size="sm" onClick={() => handleRemoveProject(project.id)}>
+                      x
+                    </Button>
+                  </motion.div>
+                ))}
+              </div>
             </>
           ) : (
             ''

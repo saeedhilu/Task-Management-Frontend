@@ -45,9 +45,9 @@ const ProjectsPage = () => {
       setIsDialogOpen(false);
     },
     onError: (error) => {
-        const errorMessage = error.response?.data?.name?.[0] || "Failed to add project!";
-        showToast(errorMessage, "error");
-      },
+      const errorMessage = error.response?.data?.name?.[0] || "Failed to add project!";
+      showToast(errorMessage, "error");
+    },
   });
 
   const handleAddProject = (data) => {
@@ -74,75 +74,75 @@ const ProjectsPage = () => {
 
   return (
     <>
-    <div className="flex justify-end">
-      <motion.a
-        whileHover={{ scale: 1.2 }}
-        className="bg-sky-400 p-3 rounded-lg"
-        onHoverStart={event => {}}
-        onClick={() => setIsDialogOpen(true)}
-        onHoverEnd={event => {}}
-      >
-        Add new project
-      </motion.a>
-      
-     
-    </div>
-     
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
-       
-      {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
-      ))}
+      <div className="flex justify-end">
+        <motion.a
+          whileHover={{ scale: 1.2 }}
+          className="bg-sky-400 p-3 rounded-lg"
+          onHoverStart={event => { }}
+          onClick={() => setIsDialogOpen(true)}
+          onHoverEnd={event => { }}
+        >
+          Add new project
+        </motion.a>
 
-      {!projects.length && <div>No Projects Found</div>}
 
-      <DialogComponent
-        open={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        title="Add New Project"
-        description="Fill in the details of the new project."
-        inputs={[
-          {
-            label: "Project Name",
-            id: "name",
-            name: "name",
-            value: newProject.name,
-            onChange: handleInputChange,
-          },
-          {
-            label: "Description",
-            id: "description",
-            name: "description",
-            value: newProject.description,
-            onChange: handleInputChange,
-          },
-          {
-            label: "Start Date",
-            id: "start_date",
-            name: "start_date",
-            value: newProject.start_date,
-            onChange: handleInputChange,
-          },
-          {
-            label: "End Date",
-            id: "end_date",
-            name: "end_date",
-            value: newProject.end_date,
-            onChange: handleInputChange,
-          },
-        ]}
-        onSubmit={handleAddProject}
-        submitButtonText="Add Project"
-        cancelButtonText="Cancel"
-        selectedMembers={selectedMembers}
-        setSelectedMembers={setSelectedMembers}
-        handleRemoveMember={handleRemoveMember}
-      />
+      </div>
 
-      
-    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
+
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+
+        {!projects.length && <div>No Projects Found</div>}
+
+        <DialogComponent
+          open={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          title="Add New Project"
+          description="Fill in the details of the new project."
+          inputs={[
+            {
+              label: "Project Name",
+              id: "name",
+              name: "name",
+              value: newProject.name,
+              onChange: handleInputChange,
+            },
+            {
+              label: "Description",
+              id: "description",
+              name: "description",
+              value: newProject.description,
+              onChange: handleInputChange,
+            },
+            {
+              label: "Start Date",
+              id: "start_date",
+              name: "start_date",
+              value: newProject.start_date,
+              onChange: handleInputChange,
+            },
+            {
+              label: "End Date",
+              id: "end_date",
+              name: "end_date",
+              value: newProject.end_date,
+              onChange: handleInputChange,
+            },
+          ]}
+          onSubmit={handleAddProject}
+          submitButtonText="Add Project"
+          cancelButtonText="Cancel"
+          selectedMembers={selectedMembers}
+          setSelectedMembers={setSelectedMembers}
+          handleRemoveMember={handleRemoveMember}
+        />
+
+
+      </div>
     </>
-    
+
   );
 };
 

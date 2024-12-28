@@ -17,7 +17,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { FiSend, FiEdit, FiSave, FiX, FiTrash2 } from 'react-icons/fi';
-import {Button} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 
 export const PRIORITY_CHOICES = {
   low: 'text-green-700',
@@ -35,7 +35,7 @@ export function CardComponent({ task, className, ...props }) {
   const [editCommentId, setEditCommentId] = useState(null);
   const [editCommentText, setEditCommentText] = useState('');
   console.log('====================================');
-  console.log('Edited comment id Is :',editCommentId);
+  console.log('Edited comment id Is :', editCommentId);
   console.log('====================================');
   const taskProperties = [
     { label: 'Status', value: task.status },
@@ -46,8 +46,8 @@ export function CardComponent({ task, className, ...props }) {
       value: task.assigned_to.map(email => email === userEmail ? 'You' : email).join(', ')
     },
   ];
-  
-  const userName = useSelector((state)=> state.auth.user.username)
+
+  const userName = useSelector((state) => state.auth.user.username)
   console.log('====================================');
   console.log('user ane is :', userName);
   console.log('====================================');
@@ -55,7 +55,7 @@ export function CardComponent({ task, className, ...props }) {
     async function fetchComments() {
       const fetchedComments = await CommentService.fetchComments(pagination.page);
       console.log('====================================');
-      console.log('Comments are :',fetchedComments);
+      console.log('Comments are :', fetchedComments);
       console.log('====================================');
       setComments(fetchedComments.results);
       setPagination({ page: fetchedComments.page, totalPages: fetchedComments.total_pages });
@@ -119,10 +119,10 @@ export function CardComponent({ task, className, ...props }) {
     const updatedComments = await CommentService.fetchComments(pagination.page);
     setComments(updatedComments.results);
     setPagination({ page: updatedComments.page, totalPages: updatedComments.total_pages });
-  };  
+  };
   console.log('Comments is :', comments);
   console.log('----------------Task  is :', task);
-  
+
 
   return (
     <>
@@ -133,15 +133,15 @@ export function CardComponent({ task, className, ...props }) {
         transition={{ duration: 0.3 }}
       >
         <Card className={clsx("w-[380px] shadow-lg rounded-lg overflow-hidden", className)} {...props}>
-        <CardHeader className="p-6">
-          <CardTitle className="text-2xl font-bold flex items-center whitespace-nowrap overflow-hidden text-ellipsis">
-            {task.title}
-            <p className="text-base text-gray-500 ml-2 truncate" title={task.project}>
-              ({task.project})
-            </p>
-          </CardTitle>
-          <CardDescription className="text-gray-500">{task.description}</CardDescription>
-        </CardHeader>
+          <CardHeader className="p-6">
+            <CardTitle className="text-2xl font-bold flex items-center whitespace-nowrap overflow-hidden text-ellipsis">
+              {task.title}
+              <p className="text-base text-gray-500 ml-2 truncate" title={task.project}>
+                ({task.project})
+              </p>
+            </CardTitle>
+            <CardDescription className="text-gray-500">{task.description}</CardDescription>
+          </CardHeader>
 
 
 
@@ -166,18 +166,18 @@ export function CardComponent({ task, className, ...props }) {
                   onChange={handleCommentChange}
                 />
                 <Button
-                className="mt-2  px-4 py-2 rounded-md flex items-center space-x-2"
-                onClick={handleCommentSubmit}
-              >
-                <FiSend />
-                <span>Send</span>
-              </Button>
+                  className="mt-2  px-4 py-2 rounded-md flex items-center space-x-2"
+                  onClick={handleCommentSubmit}
+                >
+                  <FiSend />
+                  <span>Send</span>
+                </Button>
 
               </div>
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger>
                   <button className="mt-2 bg-gray-500 text-white px-4 py-2 rounded-md">
-                      View Comments ({comments?.filter((c) => c.task === task.id).length})
+                    View Comments ({comments?.filter((c) => c.task === task.id).length})
                   </button>
                 </DialogTrigger>
                 <DialogContent>
@@ -186,38 +186,38 @@ export function CardComponent({ task, className, ...props }) {
                   </DialogHeader>
                   <DialogFooter>
                     {comments?.filter((c) => c.task === task.id).map((c) => (
-                        <div key={c.id} className="p-2 flex items-center space-x-2">
-                          {editCommentId === c.id ? (
-                            <>
-                              <Textarea
-                                className="w-full p-2 border rounded-md"
-                                rows="0"
-                                value={editCommentText}
-                                onChange={handleEditCommentChange}
-                              />
-                              
-                                <FiSave onClick={handleEditCommentSubmit} size={29} />
-                                
+                      <div key={c.id} className="p-2 flex items-center space-x-2">
+                        {editCommentId === c.id ? (
+                          <>
+                            <Textarea
+                              className="w-full p-2 border rounded-md"
+                              rows="0"
+                              value={editCommentText}
+                              onChange={handleEditCommentChange}
+                            />
 
-                              <button onClick={handleCancelEdit} className="text-gray-500">
-                                Cancel
-                              </button>
-                            </>
-                          ) : (
-                            <>
-                              <strong>{ userName === c.username ? 'You': c.username}:</strong> {c.text}
-                              {userName == c.username && (
-                                <>
+                            <FiSave onClick={handleEditCommentSubmit} size={29} />
+
+
+                            <button onClick={handleCancelEdit} className="text-gray-500">
+                              Cancel
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <strong>{userName === c.username ? 'You' : c.username}:</strong> {c.text}
+                            {userName == c.username && (
+                              <>
                                 <FiEdit onClick={() => handleEditClick(c.id, c.text)} />
-                                <FiTrash2  onClick={() => handleDeleteComment(c.id)} />
-                                </>
-                                 
-                              )}
-                               
-                            </>
-                          )}
-                        </div>
-                      ))}
+                                <FiTrash2 onClick={() => handleDeleteComment(c.id)} />
+                              </>
+
+                            )}
+
+                          </>
+                        )}
+                      </div>
+                    ))}
 
                     {pagination.page < pagination.totalPages && (
                       <button

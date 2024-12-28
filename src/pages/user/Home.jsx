@@ -1,12 +1,12 @@
 
 import TaskListing from "./TaskLIst";
 
-const Home=()=>{
+const Home = () => {
     return (
         <div>
 
-            <TaskListing/>
-           
+            <TaskListing />
+
         </div>
     )
 }

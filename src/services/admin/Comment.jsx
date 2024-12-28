@@ -2,7 +2,7 @@ import instance from "@/utils/AxiosInstance";
 
 const CommentService = {
   // Fetch all Comments
-    fetchComments: async () => {
+  fetchComments: async () => {
     const response = await instance.get("/users/comment/");
     console.log('====================================');
     console.log('Response is :', response);
@@ -19,10 +19,10 @@ const CommentService = {
   // Create a new Comment
   createComment: async (CommentData) => {
     console.log('Command data is :', CommentData);
-    
+
     const response = await instance.post("/users/comment/", CommentData);
     console.log('====================================');
-    console.log('Resoinse when creating the comment is :',response);
+    console.log('Resoinse when creating the comment is :', response);
     console.log('====================================');
     return response.data;
   },

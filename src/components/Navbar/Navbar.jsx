@@ -37,8 +37,8 @@ export function Navbar() {
           </a>
         </li>
       </ul>
-      <ModeToggle/>
-      <MyNotificationsComponent/>
+      <ModeToggle />
+      <MyNotificationsComponent />
       {/* <button
         onClick={() => {
           document.documentElement.classList.toggle("dark");
@@ -47,7 +47,7 @@ export function Navbar() {
       >
         Toggle Theme
       </button> */}
-     
+
     </nav>
   );
 }

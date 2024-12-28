@@ -19,21 +19,21 @@ const STATUS_CHOICES = [
 export function Dropdown({ selectedStatus, onChange }) {
   return (
     <div className="mb-6">
-    <Select value={selectedStatus} onValueChange={onChange} c>
-      <SelectTrigger className="w-[280px]">
-        <SelectValue placeholder="Select Status" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Status</SelectLabel>
-          {STATUS_CHOICES.map(({ value, label }) => (
-            <SelectItem key={value} value={value}>
-              {label}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+      <Select value={selectedStatus} onValueChange={onChange} c>
+        <SelectTrigger className="w-[280px]">
+          <SelectValue placeholder="Select Status" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Status</SelectLabel>
+            {STATUS_CHOICES.map(({ value, label }) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
     </div>
   );
 }

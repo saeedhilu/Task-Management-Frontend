@@ -13,7 +13,7 @@ const AdminRoutes = () => {
   return (
     <Routes>
       <Route path="admin/" element={<AdminLayout />}>
-       
+
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="tasks" element={<Task />} />
         <Route path="tag" element={<Tag />} />

@@ -14,25 +14,25 @@ const TaskListing = () => {
     () => FetchTask(userEmail, selectedStatus)
   );
 
-  if (isLoading) return <SkeletonCard/>
+  if (isLoading) return <SkeletonCard />
   if (isError) return <p>Error loading tasks.</p>;
 
   return (
     <div className='pl-3' >
-      
+
       <Dropdown
         selectedStatus={selectedStatus}
         onChange={setSelectedStatus}
       />
 
-    
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {tasks?.length === 0 ? (
-      <p>No tasks available at the moment.</p>
-    ) : (
-      tasks.map((task) => <CardComponent key={task.id} task={task} />)
-    )}
-  </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {tasks?.length === 0 ? (
+          <p>No tasks available at the moment.</p>
+        ) : (
+          tasks.map((task) => <CardComponent key={task.id} task={task} />)
+        )}
+      </div>
 
     </div>
   );

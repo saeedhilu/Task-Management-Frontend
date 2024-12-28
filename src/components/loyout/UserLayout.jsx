@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom'; 
+import { Outlet } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 
 const UserLayout = () => {
@@ -7,7 +7,7 @@ const UserLayout = () => {
     <div >
       <Navbar />
       <div >
-        <Outlet /> 
+        <Outlet />
       </div>
     </div>
   );

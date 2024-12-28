@@ -1,12 +1,12 @@
 import DashboardCard from "@/components/card/DashboardCard";
 
-const AdminDashboard=()=>{
+const AdminDashboard = () => {
     console.log('====================================');
     console.log('Hey iam here ');
     console.log('====================================');
     return (
         <div>
-            <DashboardCard/>
+            <DashboardCard />
         </div>
     )
 }

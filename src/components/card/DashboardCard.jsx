@@ -17,7 +17,7 @@ const DashboardCard = () => {
       <Card>
         <CardHeader>
           <CardTitle>Total Projects</CardTitle>
-        </CardHeader>   
+        </CardHeader>
         <CardContent>
           <p className="text-3xl font-bold">{stats.total_projects}</p>
         </CardContent>
@@ -49,7 +49,7 @@ const DashboardCard = () => {
           <p className="text-3xl font-bold">{stats.completed_projects}</p>
         </CardContent>
       </Card>
-      <BarChart stats={stats}/>
+      <BarChart stats={stats} />
     </div>
   );
 };

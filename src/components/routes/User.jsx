@@ -12,9 +12,9 @@ const UserRoutes = () => {
         <Suspense fallback={<Spinner />}>
             <Routes>
                 <Route path="user" element={<UserLayout />}>
-                    <Route path="home" element={<Home />} />  {/* relative path */}
-                    <Route path="signup" element={<Signup />} />  {/* relative path */}
-                    <Route path="login" element={<LoginPage />} />  {/* relative path */}
+                    <Route path="home" element={<Home />} />
+                    <Route path="signup" element={<Signup />} />
+                    <Route path="login" element={<LoginPage />} />
                 </Route>
             </Routes>
         </Suspense>

@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext({
   theme: "system",
-  setTheme: () => {},
+  setTheme: () => { },
 });
 
 export function ThemeProvider({ children, defaultTheme = "system", storageKey = "vite-ui-theme" }) {

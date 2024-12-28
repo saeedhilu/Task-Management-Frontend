@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery,useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import useNotificationWebSocket from "@/hooks/useNotifications";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { FaBell } from "react-icons/fa";
@@ -12,16 +12,16 @@ const MyNotificationsComponent = () => {
   const queryClient = useQueryClient();
   const { data: fetchedNotifications, refetch } = useQuery("notifications", fetchNotifications, {
     onSuccess: (data) => {
-      setNotifications(data.results); 
+      setNotifications(data.results);
       queryClient.invalidateQueries('tasks');
     },
   });
 
   const addNotification = (notification) => {
     console.log('Heyyyyyyyy');
-    
+
     NotificationSound().playSound();
-    
+
     setNotifications((prevNotifications) => [
       ...prevNotifications,
       notification,
@@ -32,7 +32,7 @@ const MyNotificationsComponent = () => {
 
   useEffect(() => {
     if (fetchedNotifications) {
-      setNotifications(fetchedNotifications.results); 
+      setNotifications(fetchedNotifications.results);
     }
   }, [fetchedNotifications]);
 

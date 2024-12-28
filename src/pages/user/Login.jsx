@@ -42,7 +42,7 @@ export default function LoginPage() {
       if (error.response) {
         if (error.response.data.password) {
           showToast(error.response.data.password, "error");
-        } else  {
+        } else {
           showToast("Login failed. Please try again.", "error");
         }
       } else {

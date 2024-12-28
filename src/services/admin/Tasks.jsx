@@ -25,10 +25,10 @@ const TasksService = {
       assigned_to: tasksData.assigned_to, // Mapping members to assigned_to
       created_by: 1, // Replace with actual user ID (or fetch dynamically if needed)
       project: tasksData.project, // Replace with the project ID relevant to the task
-  };
+    };
 
     console.log('create task is :', tasksData);
-    
+
     const response = await instance.post("/tasks/tasks/", payload);
     return response.data;
   },
@@ -36,7 +36,7 @@ const TasksService = {
   // Update an existing Tasks
   updateTasks: async (TasksId, TasksData) => {
     console.log('task id and task data is :', TasksId, TasksData);
-    
+
     const response = await instance.patch(`/tasks/tasks/${TasksId}/`, TasksData);
     return response.data;
   },

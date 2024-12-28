@@ -7,10 +7,10 @@ const NotificationSound = () => {
   const audio = new Audio(notificationSound);
 
   const playSound = () => {
-    
+
     audio.play();
   };
-    
+
   return { playSound };
 };
 

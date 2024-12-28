@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import ProjectSearchService from "@/services/admin/ProjectSearch";
 import Spinner from "../spinner/Spinner";
 
-export default function SearchProjectSelect({ setSelectedProject,selectedProject }) {
+export default function SearchProjectSelect({ setSelectedProject, selectedProject }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data: results, isLoading, refetch } = useQuery(
@@ -53,7 +53,7 @@ export default function SearchProjectSelect({ setSelectedProject,selectedProject
         </button>
       </div>
 
-      {isLoading && <div className="mt-2 text-center"><Spinner/></div>}
+      {isLoading && <div className="mt-2 text-center"><Spinner /></div>}
 
       {results?.results?.length > 0 && (
         <motion.ul

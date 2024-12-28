@@ -30,7 +30,7 @@ const SignupSchema = z
 export default function SignupPage() {
   const showToast = useToastNotification();
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -48,7 +48,7 @@ export default function SignupPage() {
         password: data.password,
         password2: data.confirm_password,
       };
-  
+
       const response = await SignupService(SignupData);
       console.log("Signup successful:", response);
       showToast("Signup successful", "success");
@@ -56,9 +56,9 @@ export default function SignupPage() {
       navigate("/user/home");
     } catch (error) {
       console.error("Signup failed:", error);
-      
+
       const { response } = error;
-      
+
       if (response) {
         if (response.data.username) {
           showToast(response.data.username[0], "error");
@@ -72,7 +72,7 @@ export default function SignupPage() {
       }
     }
   };
-  
+
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -151,7 +151,7 @@ export default function SignupPage() {
             {isSubmitting ? "Signing up..." : "Signup"}
           </Button>
         </form>
-        
+
 
         <div className="mt-4 text-center">
           <p className="text-sm">

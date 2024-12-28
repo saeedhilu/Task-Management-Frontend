@@ -11,7 +11,7 @@ const TaskList = () => {
   const { data: tasks, isLoading, isError, error, refetch } = useQuery('tasks', TasksService.fetchTaskss);
   const showToast = useToastNotification();
   const queryClient = useQueryClient();
-  
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newTask, setNewTask] = useState({
     title: "",
@@ -29,7 +29,7 @@ const TaskList = () => {
     setSelectedProject((prev) => prev.filter((task) => task.id !== taskId));
   };
 
-  const createMutation =   useMutation((data) => TasksService.createTasks(data), {
+  const createMutation = useMutation((data) => TasksService.createTasks(data), {
     onSuccess: () => {
       queryClient.invalidateQueries('tasks');
       refetch();
@@ -48,22 +48,22 @@ const TaskList = () => {
       prevSelectedMembers.filter((member) => member.id !== memberId)
     );
   };
- 
+
   const handleAddTask = (data) => {
-    console.log('dat for submit is :',data);
-    
+    console.log('dat for submit is :', data);
+
     if (
-      data.title.trim() && 
-      data.due_date && 
-    selectedProject.length > 0 && 
-    selectedMembers.length > 0 && 
-    data.priority 
-    
-     ) {
+      data.title.trim() &&
+      data.due_date &&
+      selectedProject.length > 0 &&
+      selectedMembers.length > 0 &&
+      data.priority
+
+    ) {
       createMutation.mutate({
         ...newTask,
         project: selectedProject[0].id,
-        assigned_to : selectedMembers.map((assign)=>assign.id)
+        assigned_to: selectedMembers.map((assign) => assign.id)
       });
     } else {
       showToast("Please fill in all fields and add at least one task.", "error");
@@ -138,8 +138,8 @@ const TaskList = () => {
           setSelectedProject={setSelectedProject}
           handleRemoveProject={handleRemoveProject}
           selectedMembers={selectedMembers}
-        setSelectedMembers={setSelectedMembers}
-        handleRemoveMember={handleRemoveMember}
+          setSelectedMembers={setSelectedMembers}
+          handleRemoveMember={handleRemoveMember}
         />
       </div>
     </div>

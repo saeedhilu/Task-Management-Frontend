@@ -1,4 +1,4 @@
-const Settings = () =>{
+const Settings = () => {
     return (
         <div>
             Hello iam Settings

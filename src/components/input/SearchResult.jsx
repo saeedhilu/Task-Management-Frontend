@@ -6,15 +6,15 @@ import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import Spinner from "../spinner/Spinner";
 
-export default function SearchSelectInput({setSelectedMembers, selectedUsers}) {
+export default function SearchSelectInput({ setSelectedMembers, selectedUsers }) {
   const [searchTerm, setSearchTerm] = useState("");
-    console.log('Selected users are :',selectedUsers);
-    
+  console.log('Selected users are :', selectedUsers);
+
   const { data: results, isLoading, refetch } = useQuery(
     ["searchUsers", searchTerm],
     () => UserSearchService.searchUsers(searchTerm),
     {
-      enabled: searchTerm.length>0, 
+      enabled: searchTerm.length > 0,
       refetchOnWindowFocus: false,
     }
   );
@@ -53,7 +53,7 @@ export default function SearchSelectInput({setSelectedMembers, selectedUsers}) {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyUp={handleSearch}
-          
+
           className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2"
         />
         <button
@@ -81,11 +81,10 @@ export default function SearchSelectInput({setSelectedMembers, selectedUsers}) {
           {results.results.map((user) => (
             <li
               key={user.id}
-              className={`flex items-center justify-between px-4 py-2 cursor-pointer ${
-                selectedUsers.some((u) => u.id === user.id)
+              className={`flex items-center justify-between px-4 py-2 cursor-pointer ${selectedUsers.some((u) => u.id === user.id)
                   ? "bg-indigo-500 text-white"
                   : ""
-              }`}
+                }`}
               onClick={() => handleSelect(user)}
             >
               <span>{user.username}</span>
@@ -101,7 +100,7 @@ export default function SearchSelectInput({setSelectedMembers, selectedUsers}) {
         <div className="mt-2 text-center">No users found.</div>
       )}
 
-     
+
     </div>
   );
 }

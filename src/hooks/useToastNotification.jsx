@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const useToastNotification = () => {
   const showToast = (message, variant = "success", duration = 2000) => {
     console.log("Message:", message);
-    
+
     const toastOptions = {
       default: {
         title: "Notification",
