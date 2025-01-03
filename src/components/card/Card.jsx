@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import CommentService from '@/services/admin/Comment';
 import { Textarea } from "@/components/ui/textarea";
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { MentionsInput, Mention } from 'react-mentions'
 import {
   Dialog,
   DialogTrigger,
@@ -18,6 +20,8 @@ import {
 } from "@/components/ui/dialog";
 import { FiSend, FiEdit, FiSave, FiX, FiTrash2 } from 'react-icons/fi';
 import { Button } from "@/components/ui/button"
+import TaskUsers from '@/services/user/TaskUsers';
+import Spinner from '../spinner/Spinner';
 
 export const PRIORITY_CHOICES = {
   low: 'text-green-700',
@@ -34,9 +38,8 @@ export function CardComponent({ task, className, ...props }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editCommentId, setEditCommentId] = useState(null);
   const [editCommentText, setEditCommentText] = useState('');
-  console.log('====================================');
-  console.log('Edited comment id Is :', editCommentId);
-  console.log('====================================');
+  const [ isCommentLoad, setIsCommenLoading] = useState(false)
+
   const taskProperties = [
     { label: 'Status', value: task.status },
     { label: 'Priority', value: task.priority },
@@ -69,6 +72,7 @@ export function CardComponent({ task, className, ...props }) {
 
   const handleCommentSubmit = async () => {
     if (comment.trim()) {
+      setIsCommenLoading(true)
       try {
         const newComment = {
           task: task.id,
@@ -81,6 +85,8 @@ export function CardComponent({ task, className, ...props }) {
         setPagination({ page: updatedComments.page, totalPages: updatedComments.total_pages });
       } catch (error) {
         console.error('Error posting comment:', error);
+      }finally{
+        setIsCommenLoading(false)
       }
     }
   };
@@ -113,7 +119,10 @@ export function CardComponent({ task, className, ...props }) {
     setEditCommentId(null);
     setEditCommentText('');
   };
-
+  const {data:taskUsers,isLoading:userLoading,isError:useError}  = useQuery(
+    ['taskUsers',task.id],
+    () =>  TaskUsers(task.id)
+  )
   const handleDeleteComment = async (commentId) => {
     await CommentService.deleteComment(commentId);
     const updatedComments = await CommentService.fetchComments(pagination.page);
@@ -148,7 +157,7 @@ export function CardComponent({ task, className, ...props }) {
           <CardContent className="p-6">
             <div className="space-y-4">
               <div className="flex items-center space-x-4 border border-gray-200 rounded-lg p-4">
-                <div className="flex-1 space-y-2">
+                <div className="flex-1 space-y-2 h-36 overflow-auto">
                   {taskProperties.map(({ label, value }, index) => (
                     <div key={index} className={`flex space-x-2 ${PRIORITY_CHOICES[value]}`}>
                       <span className="font-medium">{label}:</span>
@@ -157,23 +166,33 @@ export function CardComponent({ task, className, ...props }) {
                   ))}
                 </div>
               </div>
-              <div className='flex gap-2'>
-                <Textarea
-                  className="w-full p-2 border rounded-md"
-                  rows="1"
-                  placeholder="Add a comment..."
-                  value={comment}
-                  onChange={handleCommentChange}
-                />
-                <Button
-                  className="mt-2  px-4 py-2 rounded-md flex items-center space-x-2"
-                  onClick={handleCommentSubmit}
-                >
-                  <FiSend />
-                  <span>Send</span>
-                </Button>
+              <div className="flex gap-2 ">
+                <MentionsInput
 
-              </div>
+                      value={comment}
+                      onChange={handleCommentChange}
+                      className="w-96 react-mentions__dropdown-menu "
+                      placeholder="   Add a comment..."
+                    >
+                    <Mention
+                      trigger="@"
+                      data={taskUsers?.map((user) => ({
+                        id: user.id,
+                        display: user.username,
+                      }))}
+                      onAdd={(id, display) => {
+                        const trimmedDisplay = display.trim(); 
+                        const mentionString = `@${trimmedDisplay} `; 
+                        setComment((prev) => prev.replace(/@\S+/g, '') + mentionString); 
+                        setMentions((prev) => [...prev, { id, display: trimmedDisplay }]);
+                      }}
+                    />
+                  </MentionsInput>
+              <Button onClick={handleCommentSubmit}>
+                    {isCommentLoad ? <Spinner/> : <FiSend /> }
+              </Button>
+            </div>
+
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger>
                   <button className="mt-2 bg-gray-500 text-white px-4 py-2 rounded-md">

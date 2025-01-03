@@ -35,12 +35,16 @@ export const PRIORITY_CHOICES = {
 };
 
 const TaskCard = ({ task }) => {
+  
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const queryClient = useQueryClient();
   const showToast = useToastNotification();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedMembers, setSelectedMembers] = useState(task.members_usernames.map((username) => ({ id: username[1], username })));
   const username = useSelector((state) => state.auth.user.username);
+
+  // Diologue fields
+
   const [dialogInputs, setDialogInputs] = useState([
     { label: 'Title', id: 'title', name: 'title', value: task.title, onChange: (e) => handleInputChange(e, 'title') },
     { label: 'Description', id: 'description', name: 'description', value: task.description, onChange: (e) => handleInputChange(e, 'description') },
@@ -212,7 +216,7 @@ const TaskCard = ({ task }) => {
                   value={comment}
                   onChange={handleCommentChange}
                   className="w-96 react-mentions__dropdown-menu"
-                  placeholder="Add a comment with @mention..."
+                  placeholder="Add a comment..."
                 >
                     <Mention
                       trigger="@"

@@ -52,8 +52,7 @@ export default function SignupPage() {
       const response = await SignupService(SignupData);
       console.log("Signup successful:", response);
       showToast("Signup successful", "success");
-      dispatch(login(response.data));
-      navigate("/user/home");
+      navigate("/user/login");
     } catch (error) {
       console.error("Signup failed:", error);
 
@@ -157,7 +156,7 @@ export default function SignupPage() {
           <p className="text-sm">
             Already have an account?{" "}
             <a
-              href="/login"
+              href="/user/login"
               className="text-blue-500 hover:underline font-semibold"
             >
               Log In

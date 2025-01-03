@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 
 const ThemeContext = createContext({
   theme: "system",
@@ -6,7 +8,10 @@ const ThemeContext = createContext({
 });
 
 export function ThemeProvider({ children, defaultTheme = "system", storageKey = "vite-ui-theme" }) {
-  const [theme, setTheme] = useState(() => (localStorage.getItem(storageKey) || defaultTheme));
+  const mode = useSelector((state) => state.theme.theme)
+  const [theme, setTheme] = useState(() => ( mode || defaultTheme));
+
+
 
   useEffect(() => {
     const root = document.documentElement;

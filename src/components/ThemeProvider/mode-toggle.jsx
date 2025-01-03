@@ -1,4 +1,3 @@
-// components/mode-toggle.js
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,9 +7,27 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/components/ThemeProvider/ThemeToggle";
+import { useDispatch } from 'react-redux'
+import { setTheme as setReduxTheme } from "@/redux/slice/themeSlice"
 
 export function ModeToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme : setThemeFromHook  } = useTheme();
+  const dispatch  = useDispatch()
+  
+  
+  
+  const themes = [
+    { label: "System", value: "system" },
+    { label: "Light", value: "light" },
+    { label: "Dark", value: "dark" },
+    
+  ];
+
+  const handleThemeToggle=(theme)=>{
+    dispatch(setReduxTheme(theme))
+    
+    setThemeFromHook(theme)
+  }
 
   return (
     <DropdownMenu>
@@ -22,9 +39,11 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
+        {themes.map((item, idx) => (
+          <DropdownMenuItem key={idx} onClick={() => handleThemeToggle(item.value)} >
+            {item.label}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

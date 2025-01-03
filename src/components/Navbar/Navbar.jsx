@@ -36,9 +36,13 @@ export function Navbar() {
             Contact
           </a>
         </li>
+        <li className="flex gap-5 items-center">
+            <ModeToggle />
+            <MyNotificationsComponent />  
+      </li>
       </ul>
-      <ModeToggle />
-      <MyNotificationsComponent />
+     
+      
       {/* <button
         onClick={() => {
           document.documentElement.classList.toggle("dark");

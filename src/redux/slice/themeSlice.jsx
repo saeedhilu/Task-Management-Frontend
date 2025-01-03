@@ -1,8 +1,8 @@
-// slices/themeSlice.js
 import { createSlice } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 const initialState = {
-  theme: 'light', // default theme
+  theme: 'system', 
 };
 
 const themeSlice = createSlice({
